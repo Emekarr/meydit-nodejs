@@ -15,6 +15,7 @@
   },
   "preloads": [
     "./start/routes/auth",
+    "./start/routes/user",
     "./start/kernel"
   ],
   "providers": [
