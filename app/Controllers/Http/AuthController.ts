@@ -19,7 +19,7 @@ export default class AuthController {
     new ServerResponse().setMessage('user created').setBody(user.toJSON()).respond(ctx)
   }
 
-  public async loignUser(ctx: HttpContextContract) {
+  public async loginUser(ctx: HttpContextContract) {
     const { password, email } = ctx.request.only(['password', 'email'])
     await ctx.auth.attempt(email, password)
     const user = await User.query().where('email', email).first()
