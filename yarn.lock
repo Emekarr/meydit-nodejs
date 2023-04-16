@@ -53,6 +53,15 @@
     picomatch "^2.3.1"
     slash "^3.0.0"
 
+"@adonisjs/auth@^8.2.3":
+  version "8.2.3"
+  resolved "https://registry.yarnpkg.com/@adonisjs/auth/-/auth-8.2.3.tgz#30ea07216589cd0865a10d22749490ff0b122308"
+  integrity sha512-js9e8AHEsNC/8MGvho6MgL+uXr8SlhTg9MJJDWQBBiqsKkT7+H7NMP/pLbuSzYaaf40t2u/OXfq6wXuIC5ZYvw==
+  dependencies:
+    "@poppinss/hooks" "^5.0.3"
+    "@poppinss/utils" "^5.0.0"
+    luxon "^3.0.4"
+
 "@adonisjs/bodyparser@^8.1.7":
   version "8.1.7"
   resolved "https://registry.yarnpkg.com/@adonisjs/bodyparser/-/bodyparser-8.1.7.tgz#c26666ce7477c1a5b9195d9ae4095dc104df44e7"
@@ -241,6 +250,14 @@
     pirates "^4.0.5"
     rev-hash "^3.0.0"
     source-map-support "^0.5.21"
+
+"@adonisjs/session@^6.4.0":
+  version "6.4.0"
+  resolved "https://registry.yarnpkg.com/@adonisjs/session/-/session-6.4.0.tgz#464201a02df6a5d05c3ff423565ab0e7914c355d"
+  integrity sha512-9yHS60lFpNBUX5/yB+0j+bXQDWqbaYJ1JelLCYtaKRa7B0NewvmPAmsNpHH8SrXE3XGaRyKOxrUGRcmSGg5mRA==
+  dependencies:
+    "@poppinss/utils" "^4.0.4"
+    fs-extra "^10.1.0"
 
 "@adonisjs/sink@^5.4.2":
   version "5.4.3"
@@ -796,6 +813,11 @@
   dependencies:
     "@types/cookiejar" "*"
     "@types/node" "*"
+
+"@types/uuid@^9.0.1":
+  version "9.0.1"
+  resolved "https://registry.yarnpkg.com/@types/uuid/-/uuid-9.0.1.tgz#98586dc36aee8dacc98cc396dbca8d0429647aa6"
+  integrity sha512-rFT3ak0/2trgvp4yYZo5iKFEPsET7vKydKF+VRCxlQ9bpheehyAJH89dAkaLEq/j/RZXJIqcgsmPJKUP1Z28HA==
 
 "@types/validator@^13.7.10":
   version "13.7.15"
@@ -3185,7 +3207,7 @@ lru-cache@^6.0.0:
   dependencies:
     yallist "^4.0.0"
 
-luxon@^3.0.3, luxon@^3.1.0, luxon@^3.3.0:
+luxon@^3.0.3, luxon@^3.0.4, luxon@^3.1.0, luxon@^3.3.0:
   version "3.3.0"
   resolved "https://registry.yarnpkg.com/luxon/-/luxon-3.3.0.tgz#d73ab5b5d2b49a461c47cedbc7e73309b4805b48"
   integrity sha512-An0UCfG/rSiqtAIiBPO0Y9/zAnHUZxAMiCpTd5h2smgsj7GGmcenvrvww2cqNA8/4A5ZrD1gJpHN2mIHZQF+Mg==
@@ -4892,6 +4914,11 @@ util-deprecate@^1.0.1:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/util-deprecate/-/util-deprecate-1.0.2.tgz#450d4dc9fa70de732762fbd2d4a28981419a0ccf"
   integrity sha512-EPD5q1uXyFxJpCrLnCc1nHnq3gOa6DZBocAIiI2TaSCA7VCJ1UJDMagCzIkXNsUYfD1daK//LTEQ8xiIbrHtcw==
+
+uuid@^9.0.0:
+  version "9.0.0"
+  resolved "https://registry.yarnpkg.com/uuid/-/uuid-9.0.0.tgz#592f550650024a38ceb0c562f2f6aa435761efb5"
+  integrity sha512-MXcSTerfPa4uqyzStbRoTgt5XIe3x5+42+q1sDuy3R5MDk66URdLMOZe5aPX/SQd+kuYAh0FdP/pO28IkQyTeg==
 
 valid-url@~1.0.9:
   version "1.0.9"

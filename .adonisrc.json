@@ -14,13 +14,15 @@
     "Contracts": "contracts"
   },
   "preloads": [
-    "./start/routes",
+    "./start/routes/auth",
     "./start/kernel"
   ],
   "providers": [
     "./providers/AppProvider",
     "@adonisjs/core",
-    "@adonisjs/lucid"
+    "@adonisjs/lucid",
+    "@adonisjs/auth",
+    "@adonisjs/session"
   ],
   "aceProviders": [
     "@adonisjs/repl"
