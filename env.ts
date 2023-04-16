@@ -23,4 +23,8 @@ export default Env.rules({
   NODE_ENV: Env.schema.enum(['development', 'production', 'test'] as const),
   DB_CONNECTION: Env.schema.string(),
   SESSION_DRIVER: Env.schema.string(),
+  CLOUDINARY_URL: Env.schema.string(),
+  CLOUD_NAME: Env.schema.string(),
+  CLOUDINARY_API_KEY: Env.schema.string(),
+  CLOUDINARY_API_KEY_SECRET: Env.schema.string(),
 })
