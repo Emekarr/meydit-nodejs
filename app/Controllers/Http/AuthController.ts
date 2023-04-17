@@ -5,6 +5,9 @@ import ServerResponse from 'App/Utils/Response'
 import Hasher from '@ioc:Adonis/Core/Hash'
 import User from 'App/Models/User'
 import generateID from 'App/Utils/GenerateID'
+import { makerPayloadValidatorSchema } from './Validators/MakerValidator'
+import { MakerPayload } from './Types/Maker'
+import Maker from 'App/Models/Maker'
 
 export default class AuthController {
   public async createUser(ctx: HttpContextContract) {
@@ -24,5 +27,17 @@ export default class AuthController {
     await ctx.auth.attempt(email, password)
     const user = await User.query().where('email', email).first()
     new ServerResponse().setMessage('login successful').setBody(user!.toJSON()).respond(ctx)
+  }
+
+  public async createMaker(ctx: HttpContextContract) {
+    const { messages, schema } = makerPayloadValidatorSchema()
+    const validatedpPayload = (await ctx.request.validate({ schema, messages })) as MakerPayload
+    const maker = await Maker.create(validatedpPayload)
+    await ctx.auth.login(maker)
+    new ServerResponse()
+      .setMessage('maker account created')
+      .setBody(maker)
+      .setStatusCode(201)
+      .respond(ctx)
   }
 }

@@ -5,6 +5,7 @@
  * file.
  */
 
+import Maker from 'App/Models/Maker'
 import User from 'App/Models/User'
 
 declare module '@ioc:Adonis/Addons/Auth' {
@@ -37,6 +38,11 @@ declare module '@ioc:Adonis/Addons/Auth' {
       implementation: LucidProviderContract<typeof User>
       config: LucidProviderConfig<typeof User>
     }
+
+    maker: {
+      implementation: LucidProviderContract<typeof Maker>
+      config: LucidProviderConfig<typeof Maker>
+    }
   }
 
   /*
@@ -64,10 +70,16 @@ declare module '@ioc:Adonis/Addons/Auth' {
     | the `user` provider for fetching user details.
     |
     */
-    web: {
-      implementation: SessionGuardContract<'user', 'web'>
+    user: {
+      implementation: SessionGuardContract<'user', 'user'>
       config: SessionGuardConfig<'user'>
       client: SessionClientContract<'user'>
+    }
+
+    maker: {
+      implementation: SessionGuardContract<'maker', 'maker'>
+      config: SessionGuardConfig<'maker'>
+      client: SessionClientContract<'maker'>
     }
   }
 }
