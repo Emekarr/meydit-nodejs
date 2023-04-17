@@ -27,4 +27,14 @@ export default class JobsController {
     })
     new ServerResponse().setMessage('job created').setBody(job).respond(ctx)
   }
+
+  public async fetchJobs(ctx: HttpContextContract) {
+    const lastID = ctx.request.input('id', '')
+    const limit = ctx.request.input('limit')
+    const jobs = await Job.query()
+      .where('id', !lastID ? '>' : '<', lastID)
+      .limit(limit)
+      .orderBy('id', 'desc')
+    new ServerResponse().setMessage('jobs fetched').setBody(jobs).respond(ctx)
+  }
 }

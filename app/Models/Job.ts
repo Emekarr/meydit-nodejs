@@ -45,7 +45,7 @@ export default class Job extends BaseModel {
   @column()
   public type: string
 
-  @column({ columnName: 'images_url', serialize: (value) => JSON.parse(value) })
+  @column({ columnName: 'images_url' })
   public imagesUrl: string[] | string
 
   @column()
