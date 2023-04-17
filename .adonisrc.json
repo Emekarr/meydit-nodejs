@@ -16,6 +16,7 @@
   "preloads": [
     "./start/routes/auth",
     "./start/routes/user",
+    "./start/routes/job",
     "./start/kernel"
   ],
   "providers": [
@@ -25,21 +26,15 @@
     "@adonisjs/auth",
     "@adonisjs/session"
   ],
-  "aceProviders": [
-    "@adonisjs/repl"
-  ],
+  "aceProviders": ["@adonisjs/repl"],
   "tests": {
     "suites": [
       {
         "name": "functional",
-        "files": [
-          "tests/functional/**/*.spec(.ts|.js)"
-        ],
+        "files": ["tests/functional/**/*.spec(.ts|.js)"],
         "timeout": 60000
       }
     ]
   },
-  "testProviders": [
-    "@japa/preset-adonis/TestsProvider"
-  ]
+  "testProviders": ["@japa/preset-adonis/TestsProvider"]
 }
