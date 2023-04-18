@@ -17,6 +17,7 @@
     "./start/routes/auth",
     "./start/routes/user",
     "./start/routes/job",
+    "./start/routes/maker",
     "./start/kernel"
   ],
   "providers": [

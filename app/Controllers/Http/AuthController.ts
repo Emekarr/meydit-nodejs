@@ -33,7 +33,7 @@ export default class AuthController {
     const { messages, schema } = makerPayloadValidatorSchema()
     const validatedpPayload = (await ctx.request.validate({ schema, messages })) as MakerPayload
     const maker = await Maker.create(validatedpPayload)
-    await ctx.auth.login(maker)
+    await ctx.auth.use('maker').login(maker)
     new ServerResponse()
       .setMessage('maker account created')
       .setBody(maker)
