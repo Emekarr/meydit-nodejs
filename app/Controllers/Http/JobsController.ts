@@ -37,8 +37,6 @@ export default class JobsController {
     const state = ctx.request.input('state', '')
     const postcode = ctx.request.input('postcode', '')
     const type = ctx.request.input('type', '')
-    // pagination not working properly with uuid
-    // will revert to page and limit
     let jobs: Job[] = []
     if (ctx.session.get('role') === 'user') {
       await Job.query()
