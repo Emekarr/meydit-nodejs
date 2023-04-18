@@ -39,7 +39,7 @@ export default class JobsController {
     const type = ctx.request.input('type', '')
     let jobs: Job[] = []
     if (ctx.session.get('role') === 'user') {
-      await Job.query()
+      jobs = await Job.query()
         .where('id', !lastID ? '>' : '<', lastID)
         .where('user_id', ctx.auth.user?.id!)
         .where('state', !state ? '!=' : '=', state)
