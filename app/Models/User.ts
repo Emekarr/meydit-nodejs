@@ -1,6 +1,7 @@
 import { DateTime } from 'luxon'
-import { BaseModel, column, hasMany, HasMany } from '@ioc:Adonis/Lucid/Orm'
+import { BaseModel, beforeSave, column, hasMany, HasMany } from '@ioc:Adonis/Lucid/Orm'
 import Job from './Job'
+import Hasher from '@ioc:Adonis/Core/Hash'
 
 export default class User extends BaseModel {
   @column({ isPrimary: true })
@@ -36,4 +37,9 @@ export default class User extends BaseModel {
 
   @column()
   public phone: string
+
+  @beforeSave()
+  public static async hashPasswordBeforeCreation(user: User) {
+    user.password = await Hasher.make(user.password)
+  }
 }
