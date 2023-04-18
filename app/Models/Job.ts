@@ -12,6 +12,8 @@ import User from './User'
 import generateID from 'App/Utils/GenerateID'
 
 export default class Job extends BaseModel {
+  public static selfAssignPrimaryKey = true
+  
   @column({ isPrimary: true })
   public id: string
 

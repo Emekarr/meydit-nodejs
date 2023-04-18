@@ -4,6 +4,8 @@ import Job from './Job'
 import Hasher from '@ioc:Adonis/Core/Hash'
 
 export default class User extends BaseModel {
+  public static selfAssignPrimaryKey = true
+
   @column({ isPrimary: true })
   public id: string
 

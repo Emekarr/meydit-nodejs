@@ -4,6 +4,8 @@ import Hasher from '@ioc:Adonis/Core/Hash'
 import generateID from 'App/Utils/GenerateID'
 
 export default class Maker extends BaseModel {
+  public static selfAssignPrimaryKey = true
+  
   @column({ isPrimary: true })
   public id: string
 
