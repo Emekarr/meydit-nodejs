@@ -17,12 +17,14 @@ export default class AuthController {
     })) as UserPayload
     const user = await User.create({ ...validatedpPayload, id: generateID() })
     await ctx.auth.login(user)
+    ctx.session.put('role', 'user')
     new ServerResponse().setMessage('user created').setBody(user.toJSON()).respond(ctx)
   }
 
   public async loginUser(ctx: HttpContextContract) {
     const { password, email } = ctx.request.only(['password', 'email'])
     await ctx.auth.attempt(email, password)
+    ctx.session.put('role', 'user')
     const user = await User.query().where('email', email).first()
     new ServerResponse().setMessage('login successful').setBody(user!.toJSON()).respond(ctx)
   }
@@ -32,6 +34,7 @@ export default class AuthController {
     const validatedpPayload = (await ctx.request.validate({ schema, messages })) as MakerPayload
     const maker = await Maker.create(validatedpPayload)
     await ctx.auth.use('maker').login(maker)
+    ctx.session.put('role', 'maker')
     new ServerResponse()
       .setMessage('maker account created')
       .setBody(maker)
@@ -42,6 +45,7 @@ export default class AuthController {
   public async loginMaker(ctx: HttpContextContract) {
     const { password, email } = ctx.request.only(['password', 'email'])
     await ctx.auth.use('maker').attempt(email, password)
+    ctx.session.put('role', 'maker')
     const maker = await Maker.query().where('email', email).first()
     new ServerResponse().setMessage('login successful').setBody(maker!.toJSON()).respond(ctx)
   }

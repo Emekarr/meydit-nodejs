@@ -39,13 +39,26 @@ export default class JobsController {
     const type = ctx.request.input('type', '')
     // pagination not working properly with uuid
     // will revert to page and limit
-    const jobs = await Job.query()
-      .where('id', !lastID ? '>' : '<', lastID)
-      .where('state', !state ? '!=' : '=', state)
-      .where('post_code', !postcode ? '!=' : '=', postcode)
-      .where('type', !type ? '!=' : '=', type)
-      .limit(limit)
-      .orderBy('id', 'desc')
+    let jobs: Job[] = []
+    if (ctx.session.get('role') === 'user') {
+      await Job.query()
+        .where('id', !lastID ? '>' : '<', lastID)
+        .where('user_id', ctx.auth.user?.id!)
+        .where('state', !state ? '!=' : '=', state)
+        .where('post_code', !postcode ? '!=' : '=', postcode)
+        .where('type', !type ? '!=' : '=', type)
+        .limit(limit)
+        .orderBy('id', 'desc')
+    } else {
+      jobs = await Job.query()
+        .where('id', !lastID ? '>' : '<', lastID)
+        .where('state', !state ? '!=' : '=', state)
+        .where('post_code', !postcode ? '!=' : '=', postcode)
+        .where('type', !type ? '!=' : '=', type)
+        .limit(limit)
+        .orderBy('id', 'desc')
+    }
+
     new ServerResponse().setMessage('jobs fetched').setBody(jobs).respond(ctx)
   }
 }
