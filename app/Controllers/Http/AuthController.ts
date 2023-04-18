@@ -40,4 +40,11 @@ export default class AuthController {
       .setStatusCode(201)
       .respond(ctx)
   }
+
+  public async loginMaker(ctx: HttpContextContract) {
+    const { password, email } = ctx.request.only(['password', 'email'])
+    await ctx.auth.use('maker').attempt(email, password)
+    const maker = await Maker.query().where('email', email).first()
+    new ServerResponse().setMessage('login successful').setBody(maker!.toJSON()).respond(ctx)
+  }
 }
