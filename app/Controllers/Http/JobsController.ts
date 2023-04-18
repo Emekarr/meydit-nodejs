@@ -33,9 +33,17 @@ export default class JobsController {
 
   public async fetchJobs(ctx: HttpContextContract) {
     const lastID = ctx.request.input('id', '')
-    const limit = ctx.request.input('limit')
+    const limit = ctx.request.input('limit', '')
+    const state = ctx.request.input('state', '')
+    const postcode = ctx.request.input('postcode', '')
+    const type = ctx.request.input('type', '')
+    // pagination not working properly with uuid
+    // will revert to page and limit
     const jobs = await Job.query()
       .where('id', !lastID ? '>' : '<', lastID)
+      .where('state', !state ? '!=' : '=', state)
+      .where('post_code', !postcode ? '!=' : '=', postcode)
+      .where('type', !type ? '!=' : '=', type)
       .limit(limit)
       .orderBy('id', 'desc')
     new ServerResponse().setMessage('jobs fetched').setBody(jobs).respond(ctx)
