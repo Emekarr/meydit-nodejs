@@ -47,6 +47,14 @@ export default class QuotationsController {
         .orderBy('id', 'desc')
     }
 
-    new ServerResponse().setMessage('quotations fetched').setBody(quotations).respond(ctx)
+    const quotationCount = jobID
+      ? await Quotation.query().where('job_id', jobID).count('* as total')
+      : null
+    new ServerResponse()
+      .setMessage('quotations fetched')
+      .setBody(
+        quotationCount ? { count: quotationCount![0].$extras.total, quotations } : quotations
+      )
+      .respond(ctx)
   }
 }
