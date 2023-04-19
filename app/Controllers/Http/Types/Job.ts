@@ -7,5 +7,5 @@ export interface JobPayload {
   type: string
   imagesUrl: string[] | string
   description: string
-  budget: number
+  budget: number | null
 }

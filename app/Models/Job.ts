@@ -13,7 +13,7 @@ import generateID from 'App/Utils/GenerateID'
 
 export default class Job extends BaseModel {
   public static selfAssignPrimaryKey = true
-  
+
   @column({ isPrimary: true })
   public id: string
 
@@ -54,7 +54,7 @@ export default class Job extends BaseModel {
   public description: string
 
   @column()
-  public budget: number
+  public budget: number | null
 
   @afterFetch()
   public static async formatImageURLArrayAfterFetch(job: Job) {

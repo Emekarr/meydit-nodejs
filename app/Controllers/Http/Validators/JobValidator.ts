@@ -9,7 +9,7 @@ export const jobPayloadValidatorSchema = () => {
     lastName: schema.string({ trim: true }),
     type: schema.string({ trim: true }),
     description: schema.string({ trim: true }, [rules.maxLength(300)]),
-    budget: schema.number([rules.unsigned()]),
+    budget: schema.number.nullable([rules.unsigned(), rules.nullable()]),
   })
   const messages = {
     maxLength: '{{field}} can not be more than {{ options.maxLength }} characters',
