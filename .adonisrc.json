@@ -18,6 +18,7 @@
     "./start/routes/user",
     "./start/routes/job",
     "./start/routes/maker",
+    "./start/routes/quotation",
     "./start/kernel"
   ],
   "providers": [

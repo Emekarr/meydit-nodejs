@@ -1,10 +1,11 @@
 import { DateTime } from 'luxon'
-import { BaseModel, BelongsTo, belongsTo, column } from '@ioc:Adonis/Lucid/Orm'
+import { BaseModel, BelongsTo, beforeCreate, belongsTo, column } from '@ioc:Adonis/Lucid/Orm'
 import Job from './Job'
+import generateID from 'App/Utils/GenerateID'
 
 export default class Quotation extends BaseModel {
   @column({ isPrimary: true })
-  public id: number
+  public id: string
 
   @column.dateTime({ autoCreate: true })
   public createdAt: DateTime
@@ -22,11 +23,16 @@ export default class Quotation extends BaseModel {
   public makerId: string
 
   @column({ columnName: 'job_id' })
-  public jobId: string
+  public jobID: string
 
   @column()
   public price: number
 
   @column()
-  public comment: string
+  public comment: string | null
+
+  @beforeCreate()
+  public static async generateIDBeforeCreate(quotation: Quotation) {
+    quotation.id = generateID()
+  }
 }
