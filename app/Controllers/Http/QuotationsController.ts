@@ -4,13 +4,27 @@ import Quotation from 'App/Models/Quotation'
 import ServerResponse from 'App/Utils/Response'
 import { QuotationPayload } from './Types/Quotation'
 import Job from 'App/Models/Job'
+import Emails from 'App/Messaging/Emails'
+import User from 'App/Models/User'
 
 export default class QuotationsController {
   public async createQuotation(ctx: HttpContextContract) {
     const { schema, messages } = quotationPayloadValidatorSchema()
     const validatedPayload = (await ctx.request.validate({ messages, schema })) as QuotationPayload
-    await Job.findByOrFail('id', validatedPayload.jobID)
+    const job = await Job.findByOrFail('id', validatedPayload.jobID)
     const quotation = await Quotation.create({ ...validatedPayload, makerId: ctx.auth.user?.id! })
+    const jobOwner = await User.findBy('id', job.userId)
+    if (jobOwner) {
+      await Emails.send(
+        jobOwner?.email!,
+        `Your job posting on Meydit has a new quotation \n Comment from the maker : - \n ${
+          quotation.comment ? quotation.comment : 'none'
+        }`,
+        'Meydit Job Update'
+      )
+    } else {
+      console.log('report issue to error tracking')
+    }
     new ServerResponse()
       .setMessage('quotation sent')
       .setStatusCode(201)

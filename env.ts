@@ -27,4 +27,6 @@ export default Env.rules({
   CLOUD_NAME: Env.schema.string(),
   CLOUDINARY_API_KEY: Env.schema.string(),
   CLOUDINARY_API_KEY_SECRET: Env.schema.string(),
+  MEYDIT_EMAIL: Env.schema.string(),
+  SENDGRID_API_KEY: Env.schema.string(),
 })
