@@ -13,6 +13,7 @@ export default class ExceptionHandler extends HttpExceptionHandler {
       new ServerResponse()
         .setStatusCode(400)
         .setMessage('an error occured')
+        .setSuccess(false)
         .setErrors(...error?.messages?.errors)
         .respond(ctx)
       return Promise.resolve()
@@ -21,6 +22,7 @@ export default class ExceptionHandler extends HttpExceptionHandler {
       .setStatusCode(400)
       .setMessage('an error occured')
       .setErrors(error)
+      .setSuccess(false)
       .respond(ctx)
     return Promise.resolve()
   }
