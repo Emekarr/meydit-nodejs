@@ -17,10 +17,18 @@ export default class Job extends BaseModel {
   @column({ isPrimary: true })
   public id: string
 
-  @column.dateTime({ autoCreate: true })
+  @column.dateTime({
+    autoCreate: true,
+    autoUpdate: true,
+    serialize: (value) => value.toFormat('dd MMMM yyyy'),
+  })
   public createdAt: DateTime
 
-  @column.dateTime({ autoCreate: true, autoUpdate: true })
+  @column.dateTime({
+    autoCreate: true,
+    autoUpdate: true,
+    serialize: (value) => value.toFormat('dd MMMM yyyy'),
+  })
   public updatedAt: DateTime
 
   @belongsTo(() => User)
