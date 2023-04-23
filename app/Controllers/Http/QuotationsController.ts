@@ -11,9 +11,9 @@ export default class QuotationsController {
   public async createQuotation(ctx: HttpContextContract) {
     const { schema, messages } = quotationPayloadValidatorSchema()
     const validatedPayload = (await ctx.request.validate({ messages, schema })) as QuotationPayload
-    const job = await Job.findByOrFail('id', validatedPayload.jobID)
+    const job = await Job.query().where('id', validatedPayload.jobID).limit(1)
     const quotation = await Quotation.create({ ...validatedPayload, makerId: ctx.auth.user?.id! })
-    const jobOwner = await User.findBy('id', job.userId)
+    const jobOwner = await User.findBy('id', job[0].userId)
     if (jobOwner) {
       await Emails.send(
         jobOwner?.email!,
@@ -62,7 +62,10 @@ export default class QuotationsController {
     }
 
     const quotationCount = jobID
-      ? await Quotation.query().where('job_id', jobID).count('* as total')
+      ? await Quotation.query()
+          .where('job_id', jobID)
+          .where('maker_id', ctx.session.get('role') === 'user' ? '!=' : '=', ctx.auth.user?.id!)
+          .count('* as total')
       : null
     new ServerResponse()
       .setMessage('quotations fetched')
