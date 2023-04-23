@@ -16,12 +16,18 @@ export default class JobsController {
     })) as JobPayload
     const files = ctx.request.allFiles()
     if (files.images) {
-      const uploadResultPromise = (files.images as MultipartFileContract[]).map((img) => {
-        VerifyFileType(img.extname ?? '', ['jpeg', 'jpg', 'svg', 'png'])
-        return CloudinaryService.uploadDataStream(img.tmpPath!, 'job-images')
-      })
-      const uploadResults = await Promise.all(uploadResultPromise)
-      validatedPayload.imagesUrl = uploadResults.map((img) => img.secure_url)
+      if (Array.isArray(files.images)) {
+        const uploadResultPromise = (files.images as MultipartFileContract[]).map((img) => {
+          VerifyFileType(img.extname ?? '', ['jpeg', 'jpg', 'svg', 'png'])
+          return CloudinaryService.uploadDataStream(img.tmpPath!, 'job-images')
+        })
+        const uploadResults = await Promise.all(uploadResultPromise)
+        validatedPayload.imagesUrl = uploadResults.map((img) => img.secure_url)
+      } else {
+        VerifyFileType(files.images.extname ?? '', ['jpeg', 'jpg', 'svg', 'png'])
+        const result = await CloudinaryService.uploadDataStream(files.images.tmpPath!, 'job-images')
+        validatedPayload.imagesUrl = [result.secure_url]
+      }
     }
     const job = await Job.create({
       ...validatedPayload,
